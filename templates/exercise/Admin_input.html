@@ -1,0 +1,27 @@
+{% extends 'exercise/base.html' %}
+{% load crispy_forms_tags %}
+{{ tittle }}
+{% block header %}
+
+{% endblock %}
+
+<body>
+    {% block body %}
+        <div class="container col-xs-7" id="wrap">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-6 ">
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.code_num|as_crispy_field }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="submit" value="submit" class="button btn-success">
+                <input type="reset" value="cancel" class="button btn-danger">
+
+            </form>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+</body>

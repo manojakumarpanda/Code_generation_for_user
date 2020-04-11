@@ -1,0 +1,54 @@
+
+a {color:#696969;}
+img {width:100%;}
+.twhite {color:#fff!important;}
+
+.top-head ul li {padding-right:8px;}
+
+.navbar-toggler {border-color: #dd0000;}
+
+a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+a:hover{
+    text-decoration: none;
+    color: green;
+}
+/**************** Banner Slider Carousel **************/
+.carousel-inner img {width: 100%;}
+.carousel-caption {color:#000;top:110px; bottom: auto; text-align:left;}
+.carousel-caption h1 { color:#dd0000; background-color:greenyellow;}
+/************ Services **************/
+.most-car-box:hover {background-color:yellowgreen; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);}
+/*********** TABS *******/
+.nav-tabs { border-bottom: 1px solid #ccc; }
+.nav-tabs .nav-link.active {
+    border-bottom: 1px solid #dd0000;
+    border-radius:0px;
+}
+/**************** Social ICONS ***************/
+/* Social Icons */
+
+.social-icons{margin: 0;padding: 0; font-size : 10px;}
+.social {margin:7px 7px 7px 0px;}
+#social-fb:hover {color: #3B5998;transition:all .25s;}
+ #social-tw:hover {color: #4099FF;transition:all .25s;}
+ #social-gp:hover {color: #d34836;transition:all .25s;}
+ #social-em:hover {color: #f39c12;transition:all .25s;}
+
+
+    #login .container #login-row #login-column #login-box {
+      margin-top: 120px;
+      max-width: 600px;
+      height: 320px;
+      border: 1px solid #9C9C9C;
+      background-color: #EAEAEA;
+    }
+    #login .container #login-row #login-column #login-box #login-form {
+        padding: 20px;
+    }
+    #login .container #login-row #login-column #login-box #login-form #register-link {
+        margin-top: -85px;
+    }

@@ -1,0 +1,34 @@
+{% extends 'exercise/base.html' %}
+{% load staticfiles %}
+{{ tittle }}
+{% block header %}
+{% endblock %}
+<body>
+<h3>{{ message }}</h3>
+{% block body %}
+    <div class="container" >
+        <font color="blue",text="">
+            <center><h1>The data are</h1></center>
+                <center>
+                    <table border="2px" >
+                        <thead>
+                            <tr>
+                            <th>Code id</th>
+                            <th>Code</th>
+                            <th>Detail</th>
+
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                                <tr>
+                                <td>{{i.id}}</td>
+                                <td>{{i.codes}}</td>
+                                <td><a href="{% url 'Detail' i.id %}" style="color: black">Click Here</a></td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </center>
+        </font>
+    </div>
+{% endblock %}
+</body>

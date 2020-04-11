@@ -1,0 +1,37 @@
+{% extends 'exercise/base.html' %}
+{{ tittle }}
+{% block header %}
+{% endblock %}
+<body>
+{% block body %}
+    <div class="container">
+        <font color="blue",text="">
+        <center><h1>The data are</h1></center>
+           <table border="2px">
+              <thead>
+                <tr>
+                    <th>Code id</th>
+                    <th>Code</th>
+                    <th>Created on</th>
+                    <th>Number of time view</th>
+                    <th>Status</th>
+                </tr>
+              </thead>
+               <tbody>
+                   <tr>
+                       <td>{{data.id}}</td>
+                       <td>{{data.codes}}</td>
+                       <td>{{data.created_at }}</td>
+                       <th>{{data.count}}</th>
+                            {% if data.is_used %}
+                                <th>Used Already</th>
+                            {% else %}
+                                <th>Not Used</th>
+                            {% endif %}
+                    </tr>
+               </tbody>
+           </table>
+        </font>
+    </div>
+{% endblock %}
+</body>
