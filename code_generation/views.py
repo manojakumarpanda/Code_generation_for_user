@@ -2,7 +2,9 @@ from django.shortcuts import render,HttpResponseRedirect,redirect,HttpResponse
 from .mixins import CustomMixin
 from django.views.generic import View,DetailView
 from django.contrib.auth import authenticate,login,logout
-from .models import User_codes,User,profile
+from .models import User_codes,profile
+from django.contrib.auth.models import User
+from django.urls import reverse
 from .forms import admininput,User_form,Login_form
 from .dacorators import roles_allowed
 from django.utils.decorators import method_decorator
@@ -14,7 +16,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authentication import BasicAuthentication,TokenAuthentication
 from rest_framework.permissions import IsAdminUser,IsAuthenticatedOrReadOnly
-from rest_framework.decorators import action
 from .serialisers import User_Create_serialiser,code_serialisers,Login_serialiser
 
 
@@ -54,9 +55,11 @@ class logoutApi(APIView):
 #
 #         return render(request,self.template_name,{'tittle':"Home Page"})
 class Home(CustomMixin,View):
+
     auth_template_name='exercise/List code.html'
     template_name     = 'exercise/home.html'
-    def get(self,request):
+    def get(self,request,*args,**kwargs):
+
         if request.user.is_authenticated:
             if request.user.is_superuser:
                 data=User_codes.objects.all()
@@ -103,39 +106,44 @@ class Create_User(View):
     form_class      =User_form
     template_name   ='Accounts/User_creat.html'
 
-    def get(self,request,*args,**kwargs):
+    def get(self,request,foo=None,*args,**kwargs,):
         template    ='exercise/Signup.html'
         context     ={'tittle':'User From','user_form':self.form_class}
         return render(request,template,context=context)
 
     def post(self,request,*args,**kwargs):
-        User_form = self.form_class(request.POST or None)
         try:
+            User_form = self.form_class(request.POST or None)
 
             if User_form.is_valid():
                 data=request.POST
+                print('here')
                 user = User(email=data['email'],username  =data['username'],
                             first_name  =data['first_name'],last_name =data['last_name'],
                             )
                 user.set_password(raw_password=data['password'])
                 user.save()
+                print('user')
                 user_profile=profile.objects.create(mobile_num=data['mobile_num'],
                             first_name  =data['first_name'],last_name =data['last_name'],user=user)
-
+                print(user_profile)
                 messages.success(request,'The user is created successfully')
                 user=authenticate(username=data['username'],password=data['password'])
                 if user is not None:
                     login(request, user)
                 return HttpResponseRedirect('/')
+            print(User_form.errors)
+            messages.error(request,User_form.errors)
+            return HttpResponseRedirect(reverse('Signup'))
+
 
         except AttributeError:
-            messages.error(request, 'There is some error try latter')
+            raise messages.error(request, 'There is some error try latter')
         except TypeError:
-            messages.error(request, 'There is some error try latter')
-
+            raise messages.error(request, 'There is some error try latter')
         except ValueError:
-            messages.error(request,'you have entered some wrong input')
-        return HttpResponseRedirect('/')
+            raise messages.error(request,'you have entered some wrong input')
+
 
 #for the user login
 class Login_User(View):

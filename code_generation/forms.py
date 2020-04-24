@@ -23,11 +23,14 @@ class User_form(forms.Form):
 
         return passw
     def clean_email(self):
+
         email=self.cleaned_data.get('email')
+        val_email = email.split('@')
         qs=User.objects.filter(email=email)
-        if qs.exist():
+        if qs:
             raise forms.ValidationError('This email has registered already::')
-        elif 'gmail.com' in email:
+
+        elif val_email[0] in ['gmail.com','email.com']:
             raise forms.ValidationError('This is invalid type of the gmail')
         else:
             return email
